@@ -1,9 +1,9 @@
 ﻿using CL.Core.Domain;
+using CL.Manager.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
 
 namespace CL.WebApi.Controllers
 {
@@ -11,48 +11,35 @@ namespace CL.WebApi.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        // GET: api/<ClientesController>
+        private readonly IClienteRepository _clienteRepository;
+
+        public ClientesController(IClienteRepository clienteRepository)
+        {
+            _clienteRepository = clienteRepository;
+        }
+
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var clients = new List<Cliente>
-            {
-                new Cliente
-                {
-                    Id = 1,
-                    Nome = "João do Caminhão",
-                    DataNascimento = new DateTime(1970, 10, 01)
-                },
-                new Cliente 
-                {
-                    Id = 2,
-                    Nome = "Maria da Vizinha",
-                    DataNascimento = new DateTime(1970, 10, 01)
-                }
-            };
-            return Ok(clients);
+            return Ok(await _clienteRepository.GetClientesAsync());
         }
 
-        // GET api/<ClientesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            return Ok(await _clienteRepository.GetClienteAsync(id));
         }
 
-        // POST api/<ClientesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ClientesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

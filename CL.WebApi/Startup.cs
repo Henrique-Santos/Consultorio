@@ -1,4 +1,7 @@
 using CL.Data.Context;
+using CL.Data.Repository;
+using CL.Manager.Implementation;
+using CL.Manager.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +34,10 @@ namespace CL.WebApi
             services.AddControllers();
 
             services.AddDbContext<CLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CLConnection")));
+
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+
+            services.AddScoped<IClienteManager, ClienteManager>();
 
             services.AddSwaggerGen(c =>
             {
