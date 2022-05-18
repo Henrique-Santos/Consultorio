@@ -1,4 +1,6 @@
-﻿using CL.Core.Domain;
+﻿using AutoMapper;
+using CL.Core.Domain;
+using CL.Core.Shared.ModelViews;
 using CL.Manager.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,12 @@ namespace CL.Manager.Implementation
     public class ClienteManager : IClienteManager
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IMapper _mapper;
 
-        public ClienteManager(IClienteRepository clienteRepository)
+        public ClienteManager(IClienteRepository clienteRepository, IMapper mapper)
         {
             _clienteRepository = clienteRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Cliente>> GetClientesAsync()
@@ -31,13 +35,15 @@ namespace CL.Manager.Implementation
             await _clienteRepository.DeleteClienteAsync(id);
         }
 
-        public Task<Cliente> InsertClienteAsync(Cliente cliente)
+        public Task<Cliente> InsertClienteAsync(NovoCliente novoCliente)
         {
+            var cliente = _mapper.Map<Cliente>(novoCliente);
             return _clienteRepository.InsertClienteAsync(cliente);
         }
 
-        public Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        public Task<Cliente> UpdateClienteAsync(AlteraCliente alteraCliente)
         {
+            var cliente = _mapper.Map<Cliente>(alteraCliente);
             return _clienteRepository.UpdateClienteAsync(cliente);
         }
     }

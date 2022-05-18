@@ -1,4 +1,5 @@
 ﻿using CL.Core.Domain;
+using CL.Core.Shared.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Text;

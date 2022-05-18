@@ -1,7 +1,9 @@
+using AutoMapper;
 using CL.Data.Context;
 using CL.Data.Repository;
 using CL.Manager.Implementation;
 using CL.Manager.Interfaces;
+using CL.Manager.Mappings;
 using CL.Manager.Validator;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -31,15 +33,18 @@ namespace CL.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Adicionando as classes de validação do Fluent Validator
             services.AddControllers()
                 .AddFluentValidation(c =>
                 { 
-                    c.RegisterValidatorsFromAssemblyContaining<ClienteValidator>();
+                    c.RegisterValidatorsFromAssemblyContaining<NovoClienteValidator>();
+                    c.RegisterValidatorsFromAssemblyContaining<AlteraClienteValidator>();
                     c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-br");
                 });
+
+            services.AddAutoMapper(typeof(NovoClienteMappingProfile), typeof(AlteraClienteMappingProfile));
 
             services.AddDbContext<CLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CLConnection")));
 
@@ -53,7 +58,6 @@ namespace CL.WebApi
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

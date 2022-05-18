@@ -1,4 +1,5 @@
 ﻿using CL.Core.Domain;
+using CL.Core.Shared.ModelViews;
 using CL.Manager.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,37 +12,37 @@ namespace CL.WebApi.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly IClienteRepository _clienteRepository;
+        private readonly IClienteManager _clienteManager;
 
-        public ClientesController(IClienteRepository clienteRepository)
+        public ClientesController(IClienteManager clienteManager)
         {
-            _clienteRepository = clienteRepository;
+            _clienteManager = clienteManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _clienteRepository.GetClientesAsync());
+            return Ok(await _clienteManager.GetClientesAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _clienteRepository.GetClienteAsync(id));
+            return Ok(await _clienteManager.GetClienteAsync(id));
         }
 
         // Não precisa do [FromBody] por ser um objeto complexo, isso é implicito. É necessário colocar em tipos primitivos.
         [HttpPost]
-        public async Task<IActionResult> Post(Cliente cliente) 
+        public async Task<IActionResult> Post(NovoCliente novoCliente) 
         {
-            var clienteInserido = await _clienteRepository.InsertClienteAsync(cliente);
-            return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
+            var clienteInserido = await _clienteManager.InsertClienteAsync(novoCliente);
+            return CreatedAtAction(nameof(Get), new { id = clienteInserido.Id }, clienteInserido);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Cliente cliente)
+        public async Task<IActionResult> Put(AlteraCliente alteraCliente)
         {
-            var clienteAtualizado = await _clienteRepository.UpdateClienteAsync(cliente);
+            var clienteAtualizado = await _clienteManager.UpdateClienteAsync(alteraCliente);
             if (clienteAtualizado == null) return NotFound();
             return Ok(clienteAtualizado);
         }
@@ -49,7 +50,7 @@ namespace CL.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _clienteRepository.DeleteClienteAsync(id);
+            await _clienteManager.DeleteClienteAsync(id);
             return NoContent();
         }
     }
