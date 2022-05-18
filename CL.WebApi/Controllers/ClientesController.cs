@@ -30,19 +30,27 @@ namespace CL.WebApi.Controllers
             return Ok(await _clienteRepository.GetClienteAsync(id));
         }
 
+        // Não precisa do [FromBody] por ser um objeto complexo, isso é implicito. É necessário colocar em tipos primitivos.
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post(Cliente cliente) 
         {
+            var clienteInserido = await _clienteRepository.InsertClienteAsync(cliente);
+            return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put(Cliente cliente)
         {
+            var clienteAtualizado = await _clienteRepository.UpdateClienteAsync(cliente);
+            if (clienteAtualizado == null) return NotFound();
+            return Ok(clienteAtualizado);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await _clienteRepository.DeleteClienteAsync(id);
+            return NoContent();
         }
     }
 }
