@@ -2,6 +2,8 @@ using CL.Data.Context;
 using CL.Data.Repository;
 using CL.Manager.Implementation;
 using CL.Manager.Interfaces;
+using CL.Manager.Validator;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +34,12 @@ namespace CL.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(c =>
+                { 
+                    c.RegisterValidatorsFromAssemblyContaining<ClienteValidator>();
+                    c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-br");
+                });
 
             services.AddDbContext<CLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CLConnection")));
 
