@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CL.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:CL.WebApi.Controllers.ClientesController.Get">
+            <summary>
+            Retorna todos os cliente
+            </summary>
+        </member>
+        <member name="M:CL.WebApi.Controllers.ClientesController.Get(System.Int32)">
+            <summary>
+            Retorna um cliente com base no identificador 
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:CL.WebApi.Controllers.ClientesController.Post(CL.Core.Shared.ModelViews.NovoCliente)">
+            <summary>
+            Adiciona um cliente
+            </summary>
+            <param name="novoCliente"></param>
+        </member>
+        <member name="M:CL.WebApi.Controllers.ClientesController.Put(CL.Core.Shared.ModelViews.AlteraCliente)">
+            <summary>
+            Atualiza um cliente
+            </summary>
+            <param name="alteraCliente"></param>
+        </member>
+        <member name="M:CL.WebApi.Controllers.ClientesController.Delete(System.Int32)">
+            <summary>
+            Remove um cliente
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>
