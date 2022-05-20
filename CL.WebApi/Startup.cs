@@ -1,8 +1,6 @@
-using CL.Data.Context;
 using CL.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,8 +24,8 @@ namespace CL.WebApi
 
             services.AddAutoMapperConfiguration();
 
-            services.AddDbContext<CLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CLConnection")));
-
+            services.AddDataBaseConfiguration(Configuration);
+            
             services.AddDependencyInjectionConfiguration();
 
             services.AddSwaggerConfiguration();
@@ -39,6 +37,8 @@ namespace CL.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseDataBaseConfiguration();
 
             app.UseSwaggerConfiguration();
 

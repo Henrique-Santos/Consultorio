@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
@@ -32,6 +33,7 @@ namespace CL.WebApi.Configuration
                         },
                         TermsOfService = new Uri("https://opensource.org/osd")
                     });
+                c.AddFluentValidationRules(); // Adicionando na documentação os requerimentos dos campos, pego da validação.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
