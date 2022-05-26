@@ -27,12 +27,6 @@
             </summary>
             <example>M</example>
         </member>
-        <member name="P:CL.Core.Shared.ModelViews.NovoCliente.Telefone">
-            <summary>
-            Telefone do cliente
-            </summary>
-            <example>229999999999</example>
-        </member>
         <member name="P:CL.Core.Shared.ModelViews.NovoCliente.Documento">
             <summary>
             Documento do cliente: CNH, CPF ou RG

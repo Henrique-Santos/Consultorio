@@ -12,7 +12,10 @@ namespace CL.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            builder.Property(p => p.Nome).HasMaxLength(200).IsRequired();
+            builder
+                .Property(p => p.Nome)
+                .HasMaxLength(200)
+                .IsRequired();
         }
     }
 }

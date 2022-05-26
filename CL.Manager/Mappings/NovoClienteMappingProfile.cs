@@ -16,6 +16,8 @@ namespace CL.Manager.Mappings
                 .ForMember(c => c.DataNascimento, o => o.MapFrom(x => x.DataNascimento.Date)); // Removendo a informação do tempo ao receber o parametro da DataNascimento
 
             CreateMap<NovoEndereco, Endereco>();
+
+            CreateMap<NovoTelefone, Telefone>();
         }
     }
 }

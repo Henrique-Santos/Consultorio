@@ -11,6 +11,7 @@ namespace CL.Data.Context
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Telefone> Telefones { get; set; }
 
         public CLContext(DbContextOptions option): base(option) { }
 
@@ -19,6 +20,7 @@ namespace CL.Data.Context
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ClienteConfiguration());
             builder.ApplyConfiguration(new EnderecoConfiguration());
+            builder.ApplyConfiguration(new TelefoneConfiguration());
         }
     }
 }

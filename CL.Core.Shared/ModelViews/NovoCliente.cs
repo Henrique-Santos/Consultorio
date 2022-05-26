@@ -25,15 +25,11 @@ namespace CL.Core.Shared.ModelViews
         /// <example>M</example>
         public char Sexo { get; set; }
         /// <summary>
-        /// Telefone do cliente
-        /// </summary>
-        /// <example>229999999999</example>
-        public string Telefone { get; set; }
-        /// <summary>
         /// Documento do cliente: CNH, CPF ou RG
         /// </summary>
         /// <example>123456789</example>
         public string Documento { get; set; }
         public NovoEndereco Endereco { get; set; }
+        public ICollection<NovoTelefone> Telefones { get; set; }
     }
 }
