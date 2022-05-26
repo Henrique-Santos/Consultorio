@@ -1,4 +1,5 @@
 ﻿using CL.Core.Domain;
+using CL.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,11 @@ namespace CL.Data.Context
         public DbSet<Cliente> Clientes { get; set; }
 
         public CLContext(DbContextOptions option): base(option) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new ClienteConfiguration());
+        }
     }
 }
