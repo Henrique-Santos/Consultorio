@@ -1,6 +1,7 @@
 ﻿using CL.Manager.Validator;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.Globalization;
 
 namespace CL.WebApi.Configuration
@@ -11,11 +12,13 @@ namespace CL.WebApi.Configuration
         {
             // Adicionando as classes de validação do Fluent Validator
             services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore) // Corrigindo erro de referencia ciclica
                 .AddFluentValidation(c =>
                 {
                     c.RegisterValidatorsFromAssemblyContaining<NovoClienteValidator>();
                     c.RegisterValidatorsFromAssemblyContaining<AlteraClienteValidator>();
-                    c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-br");
+                    c.RegisterValidatorsFromAssemblyContaining<NovoEnderecoValidator>();
+                    c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
         }
     }

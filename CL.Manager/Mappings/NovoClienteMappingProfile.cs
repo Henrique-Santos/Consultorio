@@ -14,6 +14,8 @@ namespace CL.Manager.Mappings
             CreateMap<NovoCliente, Cliente>()
                 .ForMember(c => c.Criacao, o => o.MapFrom(x => DateTime.Now)) // Adicionando a propriedade Criacao da classe Cliente o valor obtido de DateTime.Now
                 .ForMember(c => c.DataNascimento, o => o.MapFrom(x => x.DataNascimento.Date)); // Removendo a informação do tempo ao receber o parametro da DataNascimento
+
+            CreateMap<NovoEndereco, Endereco>();
         }
     }
 }
