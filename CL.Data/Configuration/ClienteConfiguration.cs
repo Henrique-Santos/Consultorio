@@ -16,6 +16,12 @@ namespace CL.Data.Configuration
                 .Property(p => p.Nome)
                 .HasMaxLength(200)
                 .IsRequired();
+            builder
+                .Property(p => p.Sexo)
+                .HasConversion( // Salvando o valor em texto do Enum ao invez da enumeração em número
+                    p => p.ToString(), 
+                    p => (Sexo)Enum.Parse(typeof(Sexo), p)
+                );
         }
     }
 }

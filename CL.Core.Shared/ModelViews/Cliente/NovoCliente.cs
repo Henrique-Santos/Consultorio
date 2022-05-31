@@ -25,7 +25,7 @@ namespace CL.Core.Shared.ModelViews.Cliente
         /// Sexo do cliente
         /// </summary>
         /// <example>M</example>
-        public char Sexo { get; set; }
+        public SexoView Sexo { get; set; }
         /// <summary>
         /// Documento do cliente: CNH, CPF ou RG
         /// </summary>
