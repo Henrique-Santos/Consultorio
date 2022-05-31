@@ -1,6 +1,6 @@
 ﻿using CL.Core.Shared.ModelViews.Erro;
 using CL.Core.Shared.ModelViews.Medico;
-using CL.Manager.Interfaces;
+using CL.Manager.Interfaces.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
