@@ -4,34 +4,40 @@
         <name>CL.Core.Shared</name>
     </assembly>
     <members>
-        <member name="T:CL.Core.Shared.ModelViews.NovoCliente">
+        <member name="T:CL.Core.Shared.ModelViews.Cliente.NovoCliente">
             <summary>
             Objeto utilizado para inserção de um novo cliente
             </summary>
         </member>
-        <member name="P:CL.Core.Shared.ModelViews.NovoCliente.Nome">
+        <member name="P:CL.Core.Shared.ModelViews.Cliente.NovoCliente.Nome">
             <summary>
             Nome do cliente
             </summary>
             <example>João do Caminhão</example>
         </member>
-        <member name="P:CL.Core.Shared.ModelViews.NovoCliente.DataNascimento">
+        <member name="P:CL.Core.Shared.ModelViews.Cliente.NovoCliente.DataNascimento">
             <summary>
             Data de nascimento do cliente
             </summary>
             <example>2000-04-08</example>
         </member>
-        <member name="P:CL.Core.Shared.ModelViews.NovoCliente.Sexo">
+        <member name="P:CL.Core.Shared.ModelViews.Cliente.NovoCliente.Sexo">
             <summary>
             Sexo do cliente
             </summary>
             <example>M</example>
         </member>
-        <member name="P:CL.Core.Shared.ModelViews.NovoCliente.Documento">
+        <member name="P:CL.Core.Shared.ModelViews.Cliente.NovoCliente.Documento">
             <summary>
             Documento do cliente: CNH, CPF ou RG
             </summary>
             <example>123456789</example>
+        </member>
+        <member name="P:CL.Core.Shared.ModelViews.Telefone.NovoTelefone.Numero">
+            <summary>
+            Número do Telefone
+            </summary>
+            <example>229999999999</example>
         </member>
     </members>
 </doc>

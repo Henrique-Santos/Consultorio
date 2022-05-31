@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CL.Core.Shared.ModelViews
+namespace CL.Core.Shared.ModelViews.Erro
 {
     public class ErrorResponse
     {

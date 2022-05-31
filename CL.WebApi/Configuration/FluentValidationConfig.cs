@@ -16,9 +16,10 @@ namespace CL.WebApi.Configuration
                 .AddFluentValidation(c =>
                 {
                     c.RegisterValidatorsFromAssemblyContaining<NovoClienteValidator>();
-                    c.RegisterValidatorsFromAssemblyContaining<AlteraClienteValidator>();
                     c.RegisterValidatorsFromAssemblyContaining<NovoEnderecoValidator>();
+                    c.RegisterValidatorsFromAssemblyContaining<AlteraClienteValidator>();
                     c.RegisterValidatorsFromAssemblyContaining<NovoTelefoneValidator>();
+                    c.RegisterValidatorsFromAssemblyContaining<NovoMedicoValidator>();
                     c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
         }
