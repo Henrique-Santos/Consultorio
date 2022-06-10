@@ -10,9 +10,9 @@ namespace CL.Manager.Interfaces.Managers
     public interface IClienteManager
     {
         Task DeleteClienteAsync(int id);
-        Task<Cliente> GetClienteAsync(int id);
-        Task<IEnumerable<Cliente>> GetClientesAsync();
-        Task<Cliente> InsertClienteAsync(NovoCliente cliente);
-        Task<Cliente> UpdateClienteAsync(AlteraCliente cliente);
+        Task<ClienteView> GetClienteAsync(int id);
+        Task<IEnumerable<ClienteView>> GetClientesAsync();
+        Task<ClienteView> InsertClienteAsync(NovoCliente cliente);
+        Task<ClienteView> UpdateClienteAsync(AlteraCliente cliente);
     }
 }

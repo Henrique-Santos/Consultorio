@@ -58,7 +58,7 @@ namespace CL.WebApi.Controllers
         public async Task<IActionResult> Post(NovoCliente novoCliente) 
         {
             _logger.LogInformation("Objeto recebido {@novoCliente}", novoCliente);
-            Cliente clienteInserido;
+            ClienteView clienteInserido;
             using (Operation.Time("Tempo de adição de um novo cliente")) 
             {
                 _logger.LogInformation("Foi requisitada a inserção de um novo cliente");
