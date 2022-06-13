@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using SerilogTimings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CL.WebApi.Controllers
@@ -28,11 +29,14 @@ namespace CL.WebApi.Controllers
         /// Retorna todos os cliente
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)] // Documentando os possiveis retornos
+        [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)] // Documentando os possiveis retornos para o swagger
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _clienteManager.GetClientesAsync());
+            var clientes = await _clienteManager.GetClientesAsync();
+            if (!clientes.Any()) return NotFound(); 
+            return Ok(clientes);
         }
 
         /// <summary>
@@ -45,7 +49,9 @@ namespace CL.WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _clienteManager.GetClienteAsync(id));
+            var cliente = await _clienteManager.GetClienteAsync(id);
+            if (cliente.Id == 0) return NotFound();
+            return Ok(cliente);
         }
 
         /// <summary>
@@ -54,6 +60,7 @@ namespace CL.WebApi.Controllers
         /// <param name="novoCliente"></param>
         [HttpPost] // Não precisa do [FromBody] por ser um objeto complexo, isso é implicito. É necessário colocar em tipos primitivos.
         [ProducesResponseType(typeof(Cliente), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post(NovoCliente novoCliente) 
         {
@@ -65,7 +72,6 @@ namespace CL.WebApi.Controllers
                 clienteInserido = await _clienteManager.InsertClienteAsync(novoCliente);
             }
             return CreatedAtAction(nameof(Get), new { id = clienteInserido.Id }, clienteInserido);
-            _logger.LogInformation("Fim da requisição de um novo cliente");
         }
 
         /// <summary>
@@ -93,7 +99,8 @@ namespace CL.WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(int id)
         {
-            await _clienteManager.DeleteClienteAsync(id);
+            var clienteExcluido = await _clienteManager.DeleteClienteAsync(id);
+            if (clienteExcluido == null) return NotFound();
             return NoContent();
         }
     }

@@ -36,9 +36,10 @@ namespace CL.Manager.Implementation
             return _mapper.Map<ClienteView>(cliente);
         }
 
-        public async Task DeleteClienteAsync(int id)
+        public async Task<ClienteView> DeleteClienteAsync(int id)
         {
-            await _clienteRepository.DeleteClienteAsync(id);
+            var cliente = await _clienteRepository.DeleteClienteAsync(id);
+            return _mapper.Map<ClienteView>(cliente);
         }
 
         public async Task<ClienteView> InsertClienteAsync(NovoCliente novoCliente)
