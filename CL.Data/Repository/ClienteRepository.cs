@@ -48,6 +48,8 @@ namespace CL.Data.Repository
             var clienteConsultado = await _context.Clientes.FindAsync(cliente.Id);
             if (clienteConsultado == null) return null;
             _context.Entry(clienteConsultado).CurrentValues.SetValues(cliente);
+            clienteConsultado.Telefones = cliente.Telefones;
+            clienteConsultado.Endereco = cliente.Endereco;
             await _context.SaveChangesAsync();
             return clienteConsultado;
         }

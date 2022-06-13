@@ -3,7 +3,7 @@
     public class Endereco
     {
         public int ClienteId { get; set; }
-        public string CEP { get; set; }
+        public int CEP { get; set; }
         public Estado Estado { get; set; }
         public string Cidade { get; set; }
         public string Logradouro { get; set; }

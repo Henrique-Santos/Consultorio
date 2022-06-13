@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CL.FakeData.ClienteData
+namespace CL.FakeData.EnderecoData
 {
     public class NovoEnderecoFaker : Faker<NovoEndereco>
     {

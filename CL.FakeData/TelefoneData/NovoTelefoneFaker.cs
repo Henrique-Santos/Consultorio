@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CL.FakeData.ClienteData
+namespace CL.FakeData.TelefoneData
 {
     public class NovoTelefoneFaker : Faker<NovoTelefone>
     {

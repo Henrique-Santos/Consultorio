@@ -1,6 +1,8 @@
 ﻿using Bogus;
 using Bogus.Extensions.Brazil;
 using CL.Core.Shared.ModelViews.Cliente;
+using CL.FakeData.EnderecoData;
+using CL.FakeData.TelefoneData;
 using System;
 using System.Collections.Generic;
 using System.Text;

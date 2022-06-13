@@ -11,7 +11,7 @@ namespace CL.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Telefone> builder)
         {
-            builder.HasKey(c => new { c.ClientId, c.Numero }); // Definindo uma chave composta na tabela de telefone
+            builder.HasKey(c => new { c.ClienteId, c.Numero }); // Definindo uma chave composta na tabela de telefone
         }
     }
 }
