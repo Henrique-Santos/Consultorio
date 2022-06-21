@@ -20,6 +20,8 @@ namespace CL.WebApi
         {
             services.AddControllers();
 
+            services.AddJwtConfiguration(Configuration);
+
             services.AddFluentValidationConfiguration();
 
             services.AddAutoMapperConfiguration();
@@ -47,6 +49,8 @@ namespace CL.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseJwtConfiguration();
 
             app.UseAuthorization();
 

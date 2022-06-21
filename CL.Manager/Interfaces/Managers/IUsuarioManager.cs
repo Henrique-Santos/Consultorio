@@ -13,10 +13,10 @@ namespace CL.Manager.Interfaces.Managers
 
         Task<UsuarioView> GetAsync(string login);
 
-        Task<UsuarioView> InsertAsync(Usuario usuario);
+        Task<UsuarioView> InsertAsync(NovoUsuario novoUsuario);
 
         Task<UsuarioView> UpdateUsuarioAsync(Usuario usuario);
 
-        Task<bool> ValidaSenhaAsync(Usuario usuario);
+        Task<UsuarioLogado> ValidaUsuarioEGeraToken(Usuario usuario);
     }
 }

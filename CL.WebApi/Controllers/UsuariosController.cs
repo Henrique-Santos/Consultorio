@@ -1,5 +1,7 @@
 ﻿using CL.Core.Domain;
+using CL.Core.Shared.ModelViews.Usuario;
 using CL.Manager.Interfaces.Managers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -17,28 +19,28 @@ namespace CL.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("ValidaUsuario")]
-        public async Task<IActionResult> ValidaUsuario([FromBody] Usuario usuario)
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] Usuario usuario)
         {
-            var valido = await manager.ValidaSenhaAsync(usuario);
-            if (valido)
-            {
-                return Ok();
-            }
+            var usuarioLogado = await manager.ValidaUsuarioEGeraToken(usuario);
+            if (usuarioLogado != null) return Ok(usuarioLogado);
             return Unauthorized();
         }
 
-        [HttpGet("{login}")]
-        public string Get(string login)
+        [Authorize(Roles = "Presidente, Diretor")] // Necessita um token valido para usar o endpoint e ter acesso de (Presidente e Diretor)
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            return "value";
+            var login = User.Identity.Name; // Retorna o nome de Login do usuario
+            var usuario = await manager.GetAsync(login);
+            return Ok(usuario);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Usuario usuario)
+        public async Task<IActionResult> Post(NovoUsuario novoUsuario)
         {
-            var usuarioInserido = await manager.InsertAsync(usuario);
-            return CreatedAtAction(nameof(Get), new { login = usuario.Login }, usuarioInserido);
+            var usuarioInserido = await manager.InsertAsync(novoUsuario);
+            return CreatedAtAction(nameof(Get), new { login = novoUsuario.Login }, usuarioInserido);
         }
     }
 }

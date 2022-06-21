@@ -4,9 +4,10 @@ using System.Text;
 
 namespace CL.Core.Shared.ModelViews.Usuario
 {
-    public class UsuarioView
+    public class NovoUsuario
     {
         public string Login { get; set; }
-        public ICollection<FuncaoView> Funcoes { get; set; }
+        public string Senha { get; set; }
+        public ICollection<ReferenciaFuncao> Funcoes { get; set; }
     }
 }

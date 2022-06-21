@@ -33,6 +33,27 @@ namespace CL.WebApi.Configuration
                         },
                         TermsOfService = new Uri("https://opensource.org/osd")
                     });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header, // O token sera passado pelo Header
+                    Description = "Insira o token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                            }
+                        },
+                            new string []{}
+                    }
+                });
                 c.AddFluentValidationRules(); // Adicionando na documentação os requerimentos dos campos, pego da validação.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
