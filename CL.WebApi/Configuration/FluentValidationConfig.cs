@@ -1,5 +1,7 @@
 ﻿using CL.Manager.Validator;
+using FluentValidation;
 using FluentValidation.AspNetCore;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -30,6 +32,7 @@ namespace CL.WebApi.Configuration
                     c.RegisterValidatorsFromAssemblyContaining<AlteraMedicoValidator>();
                     c.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
+            services.AddFluentValidationRulesToSwagger(); // Adicionando na documentação os requerimentos dos campos, pego da validação.
         }
     }
 }

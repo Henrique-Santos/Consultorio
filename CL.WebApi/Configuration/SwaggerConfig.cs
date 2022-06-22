@@ -54,7 +54,6 @@ namespace CL.WebApi.Configuration
                             new string []{}
                     }
                 });
-                c.AddFluentValidationRules(); // Adicionando na documentação os requerimentos dos campos, pego da validação.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
