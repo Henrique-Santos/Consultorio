@@ -1,17 +1,14 @@
 ﻿using CL.Core.Shared.ModelViews.Medico;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CL.Manager.Interfaces.Managers
+namespace CL.Manager.Interfaces.Managers;
+
+public interface IMedicoManager
 {
-    public interface IMedicoManager
-    {
-        Task DeleteMedicoAsync(int id);
-        Task<MedicoView> GetMedicoAsync(int id);
-        Task<IEnumerable<MedicoView>> GetMedicosAsync();
-        Task<MedicoView> InsertMedicoAsync(NovoMedico novoMedico);
-        Task<MedicoView> UpdateMedicoAsync(AlteraMedico alteraMedico);
-    }
+    Task DeleteMedicoAsync(int id);
+    Task<MedicoView> GetMedicoAsync(int id);
+    Task<IEnumerable<MedicoView>> GetMedicosAsync();
+    Task<MedicoView> InsertMedicoAsync(NovoMedico novoMedico);
+    Task<MedicoView> UpdateMedicoAsync(AlteraMedico alteraMedico);
 }

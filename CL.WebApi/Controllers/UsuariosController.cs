@@ -1,46 +1,41 @@
 ﻿using CL.Core.Domain;
 using CL.Core.Shared.ModelViews.Usuario;
-using CL.Manager.Interfaces.Managers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace CL.WebApi.Controllers
+namespace CL.WebApi.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class UsuariosController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsuariosController : ControllerBase
+    private readonly IUsuarioManager manager;
+
+    public UsuariosController(IUsuarioManager manager)
     {
-        private readonly IUsuarioManager manager;
+        this.manager = manager;
+    }
 
-        public UsuariosController(IUsuarioManager manager)
-        {
-            this.manager = manager;
-        }
+    [HttpGet]
+    [Route("Login")]
+    public async Task<IActionResult> Login([FromBody] Usuario usuario)
+    {
+        var usuarioLogado = await manager.ValidaUsuarioEGeraToken(usuario);
+        if (usuarioLogado != null) return Ok(usuarioLogado);
+        return Unauthorized();
+    }
 
-        [HttpGet]
-        [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] Usuario usuario)
-        {
-            var usuarioLogado = await manager.ValidaUsuarioEGeraToken(usuario);
-            if (usuarioLogado != null) return Ok(usuarioLogado);
-            return Unauthorized();
-        }
+    [Authorize(Roles = "Presidente, Diretor")] // Necessita um token valido para usar o endpoint e ter acesso de (Presidente e Diretor)
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        var login = User.Identity.Name; // Retorna o nome de Login do usuario
+        var usuario = await manager.GetAsync(login);
+        return Ok(usuario);
+    }
 
-        [Authorize(Roles = "Presidente, Diretor")] // Necessita um token valido para usar o endpoint e ter acesso de (Presidente e Diretor)
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var login = User.Identity.Name; // Retorna o nome de Login do usuario
-            var usuario = await manager.GetAsync(login);
-            return Ok(usuario);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(NovoUsuario novoUsuario)
-        {
-            var usuarioInserido = await manager.InsertAsync(novoUsuario);
-            return CreatedAtAction(nameof(Get), new { login = novoUsuario.Login }, usuarioInserido);
-        }
+    [HttpPost]
+    public async Task<IActionResult> Post(NovoUsuario novoUsuario)
+    {
+        var usuarioInserido = await manager.InsertAsync(novoUsuario);
+        return CreatedAtAction(nameof(Get), new { login = novoUsuario.Login }, usuarioInserido);
     }
 }

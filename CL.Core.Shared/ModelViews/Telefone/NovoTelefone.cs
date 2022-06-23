@@ -1,11 +1,10 @@
-﻿namespace CL.Core.Shared.ModelViews.Telefone
+﻿namespace CL.Core.Shared.ModelViews.Telefone;
+
+public class NovoTelefone
 {
-    public class NovoTelefone
-    {
-        /// <summary>
-        /// Número do Telefone
-        /// </summary>
-        /// <example>229999999999</example>
-        public string Numero { get; set; }
-    }
+    /// <summary>
+    /// Número do Telefone
+    /// </summary>
+    /// <example>229999999999</example>
+    public string Numero { get; set; }
 }

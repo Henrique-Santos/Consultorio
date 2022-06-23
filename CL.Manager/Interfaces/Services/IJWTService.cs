@@ -1,9 +1,8 @@
 ﻿using CL.Core.Domain;
 
-namespace CL.Manager.Interfaces.Services
+namespace CL.Manager.Interfaces.Services;
+
+public interface IJWTService
 {
-    public interface IJWTService
-    {
-        string GerarToken(Usuario usuario);
-    }
+    string GerarToken(Usuario usuario);
 }

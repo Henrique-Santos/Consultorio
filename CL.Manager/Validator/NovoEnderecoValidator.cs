@@ -1,21 +1,17 @@
 ﻿using CL.Core.Shared.ModelViews.Endereco;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CL.Manager.Validator
+namespace CL.Manager.Validator;
+
+public class NovoEnderecoValidator : AbstractValidator<NovoEndereco>
 {
-    public class NovoEnderecoValidator : AbstractValidator<NovoEndereco>
+    public NovoEnderecoValidator()
     {
-        public NovoEnderecoValidator()
-        {
-            RuleFor(c => c.CEP).NotEmpty().NotNull();
-            RuleFor(c => c.Estado).NotEmpty();
-            RuleFor(c => c.Cidade).NotEmpty().NotNull().MaximumLength(200);
-            RuleFor(c => c.Logradouro).NotEmpty().NotNull().MaximumLength(200);
-            RuleFor(c => c.Numero).NotEmpty().NotNull().MaximumLength(10);
-            RuleFor(c => c.Complemento).MaximumLength(200);
-        }
+        RuleFor(c => c.CEP).NotEmpty().NotNull();
+        RuleFor(c => c.Estado).NotEmpty();
+        RuleFor(c => c.Cidade).NotEmpty().NotNull().MaximumLength(200);
+        RuleFor(c => c.Logradouro).NotEmpty().NotNull().MaximumLength(200);
+        RuleFor(c => c.Numero).NotEmpty().NotNull().MaximumLength(10);
+        RuleFor(c => c.Complemento).MaximumLength(200);
     }
 }

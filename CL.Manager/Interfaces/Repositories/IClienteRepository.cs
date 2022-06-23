@@ -1,19 +1,14 @@
 ﻿using CL.Core.Domain;
-using CL.Core.Shared.ModelViews;
-using CL.Core.Shared.ModelViews.Cliente;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CL.Manager.Interfaces.Repositories
+namespace CL.Manager.Interfaces.Repositories;
+
+public interface IClienteRepository
 {
-    public interface IClienteRepository
-    {
-        Task<Cliente> DeleteClienteAsync(int id);
-        Task<Cliente> GetClienteAsync(int id);
-        Task<IEnumerable<Cliente>> GetClientesAsync();
-        Task<Cliente> InsertClienteAsync(Cliente cliente);
-        Task<Cliente> UpdateClienteAsync(Cliente cliente);
-    }
+    Task<Cliente> DeleteClienteAsync(int id);
+    Task<Cliente> GetClienteAsync(int id);
+    Task<IEnumerable<Cliente>> GetClientesAsync();
+    Task<Cliente> InsertClienteAsync(Cliente cliente);
+    Task<Cliente> UpdateClienteAsync(Cliente cliente);
 }

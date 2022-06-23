@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace CL.Core.Domain
+namespace CL.Core.Domain;
+
+public class Especialidade
 {
-    public class Especialidade
-    {
-        public int Id { get; set; }
-        public string Descricao { get; set; }
-        public ICollection<Medico> Medicos { get; set; }
-    }
+    public int Id { get; set; }
+    public string Descricao { get; set; }
+    public ICollection<Medico> Medicos { get; set; }
 }

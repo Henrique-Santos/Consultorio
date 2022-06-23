@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\Henrique Santos\Desktop\Consultorio\CL.WebApi\CL.WebApi.xml</DocumentationFile>
   </PropertyGroup>
@@ -47,5 +48,10 @@
     <ProjectReference Include="..\CL.Data\CL.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="CL.Manager.Interfaces.Managers"/>
+	<Using Include="Microsoft.AspNetCore.Mvc"/>
+	<Using Include="Microsoft.AspNetCore.Authorization"/>
+  </ItemGroup>
 
 </Project>

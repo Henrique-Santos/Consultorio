@@ -9,36 +9,35 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace CL.Data.Services
+namespace CL.Data.Services;
+
+public class JWTService : IJWTService
 {
-    public class JWTService : IJWTService
+    private readonly IConfiguration configuration;
+
+    public JWTService(IConfiguration configuration)
     {
-        private readonly IConfiguration configuration;
+        this.configuration = configuration;
+    }
 
-        public JWTService(IConfiguration configuration)
+    public string GerarToken(Usuario usuario)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var chave = Encoding.ASCII.GetBytes(configuration.GetSection("JWT:Secret").Value);
+        var claims = new List<Claim>
         {
-            this.configuration = configuration;
-        }
-
-        public string GerarToken(Usuario usuario)
+            new Claim(ClaimTypes.Name, usuario.Login)
+        };
+        claims.AddRange(usuario.Funcoes.Select(f => new Claim(ClaimTypes.Role, f.Descricao)));
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var chave = Encoding.ASCII.GetBytes(configuration.GetSection("JWT:Secret").Value);
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, usuario.Login)
-            };
-            claims.AddRange(usuario.Funcoes.Select(f => new Claim(ClaimTypes.Role, f.Descricao)));
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Audience = configuration.GetSection("JWT:Audience").Value,
-                Issuer = configuration.GetSection("JWT:Issuer").Value,
-                Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(configuration.GetSection("JWT:ExpiraEmMinutos").Value)), 
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chave), SecurityAlgorithms.HmacSha512Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+            Subject = new ClaimsIdentity(claims),
+            Audience = configuration.GetSection("JWT:Audience").Value,
+            Issuer = configuration.GetSection("JWT:Issuer").Value,
+            Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(configuration.GetSection("JWT:ExpiraEmMinutos").Value)), 
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chave), SecurityAlgorithms.HmacSha512Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }
